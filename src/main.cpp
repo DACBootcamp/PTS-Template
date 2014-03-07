@@ -35,7 +35,7 @@ unsigned int nTransactionsUpdated = 0;
 map<uint256, CBlockIndex*> mapBlockIndex;
 
 uint256 hashGenesisBlock = hashGenesisBlockOfficial;
-uint256 merkleRootGenesisBlock("0x6fa9be1606341d6ea673de9a0f0091d30bccc9203d48380e9005d8d772f2eb6f");
+uint256 merkleRootGenesisBlock("0x");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 9);
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -2830,21 +2830,21 @@ bool InitBlockIndex() {
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion   = 1;
-        block.nTime      = 1383638888;
-        block.nBits      = 0x20000FFF;
-        block.nNonce     = 912733;
-        block.nBirthdayA = 47830158;
-        block.nBirthdayB = 57842266;
+        block.nTime      = 0;
+        block.nBits      = 0;
+        block.nNonce     = 0;
+        block.nBirthdayA = 0;
+        block.nBirthdayB = 0;
 
 	
 
         if (fTestNet)
         {
-            block.nTime      = 1389514088;
-            block.nBits      = 0x20000FFF;
-            block.nNonce     = 2921;
-            block.nBirthdayA = 11513970;
-            block.nBirthdayB = 13104368;
+            block.nTime      = 0;
+            block.nBits      = 0;
+            block.nNonce     = 0;
+            block.nBirthdayA = 0;
+            block.nBirthdayB = 0;
         }
 
         //// debug print

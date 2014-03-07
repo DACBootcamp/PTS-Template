@@ -1,82 +1,65 @@
-Bitcoin integration/staging tree
+PTS-Template
 ================================
 
-http://www.bitcoin.org
+Copyright (c) 2009-2013 Bitshares PTS Developers
+Copyright (c) 2013-2014 Barwizi
 
-Copyright (c) 2009-2013 Bitcoin Developers
+Minimal Changes Needed 
 
-What is Bitcoin?
-----------------
+Search/replace "BitShares-PTS" with your coin's name.
 
-Bitcoin is an experimental new digital currency that enables instant payments to
-anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
-with no central authority: managing transactions and issuing money are carried
-out collectively by the network. Bitcoin is also the name of the open source
-software which enables the use of this currency.
+Replace/Rename /src/qt/res/icons/ files to your coins name (i.e.: Bitshares PTS.png to yourcoin.png)
 
-For more information, as well as an immediately useable, binary version of
-the Bitcoin client sofware, see http://www.bitcoin.org.
+Replace /src/qt/res/images/* with your own images.
 
-License
--------
+Change /src/main.cpp following lines:
 
-Bitcoin is released under the terms of the MIT license. See `COPYING` for more
-information or see http://opensource.org/licenses/MIT.
+LINE 1073: int64 nSubsidy = 80 * COIN; //set your block rewards, it's adviseable to set reducing rewards else your chain will have infinite coins, the MAX_MONEY setting in main.h is only called in rare instances and is not enough to effectively limit the amount of coin produced in the chains lifetime. 
 
-Development process
--------------------
 
-Developers work in their own trees, then submit pull requests when they think
-their feature or bug fix is ready.
+---------------------------------------------------------------------------------------------------------
 
-If it is a simple/trivial/non-controversial change, then one of the Bitcoin
-development team members simply pulls it.
+Now, compile it like foocoin and run it. Debug.log will spit out a Merkel, for you. 
 
-If it is a *more complicated or potentially controversial* change, then the patch
-submitter will be asked to start a discussion (if they haven't already) on the
-[mailing list](http://sourceforge.net/mailarchive/forum.php?forum_name=bitcoin-development).
+change 
 
-The patch will be accepted if there is broad consensus that it is a good thing.
-Developers should expect to rework and resubmit patches if the code doesn't
-match the project's coding conventions (see `doc/coding.txt`) or are
-controversial.
+/src/main.cpp LINE 38 uint256 merkleRootGenesisBlock("0x");
 
-The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
-regularly to indicate new official, stable release versions of Bitcoin.
+paste the new merkle then run it again with valid one and it will give you Genesis Block, nNonce and birthdays and ntime
 
-Testing
--------
+/src/main.cpp LINE20: const bool IsCalculatingGenesisBlockHash = false;
 
-Testing and code review is the bottleneck for development; we get more pull
-requests than we can review and test. Please be patient and help out, and
-remember this is a security-critical project where any mistake might cost people
-lots of money.
+Plug the new values here:
 
-### Automated Testing
+/src/main.cpp LINE 2833 block.nTime   = 0;
 
-Developers are strongly encouraged to write unit tests for new code, and to
-submit new unit tests for old code.
+/src/main.cpp LINE 2835 block.nNonce   = 0;
 
-Unit tests for the core code are in `src/test/`. To compile and run them:
+/src/main.cpp LINE 2836 block.nBirthdayA   = 0;
 
-    cd src; make -f makefile.unix test
+/src/main.cpp LINE 2837 block.nBirthdayB   = 0;
 
-Unit tests for the GUI code are in `src/qt/test/`. To compile and run them:
+/src/main.h LINE 64 static const uint256 hashGenesisBlockOfficial("0x"); 65 if you are working on a testnet
 
-    qmake BITCOIN_QT_TEST=1 -o Makefile.test bitcoin-qt.pro
-    make -f Makefile.test
-    ./bitcoin-qt_test
+Now recompile with the new .cpp and .h and your MOMPoS coin is ready to go! 
 
-Every pull request is built for both Windows and Linux on a dedicated server,
-and unit and sanity tests are automatically run. The binaries produced may be
-used for manual QA testing — a link to them will appear in a comment on the
-pull request posted by [BitcoinPullTester](https://github.com/BitcoinPullTester). See https://github.com/TheBlueMatt/test-scripts
-for the build/test scripts.
+--------------------------------------------------------------------------------------------------------------
 
-### Manual Quality Assurance (QA) Testing
+Advanced Changes for Development Teams
 
-Large changes should have a test plan, and should be tested by somebody other
-than the developer who wrote the code.
+/src/main.h LINE 29  --- change the max size of your blocks 
 
-See https://github.com/bitcoin/QA/ for how to create a test plan.
+/src/main.h LINE 51  --- change the minimum transaction fee
+
+/src/main.cpp LINE 39 --- change minimum work difficulty the template comes with lowest difficulty to make function testing easier, change it as you wish. 
+
+/src/main.h LINE 53 --- change how long mined coins take to mature
+
+TODO++
+
+Genesis Block creation function
+
+Balance importation tools and functions
+
+Tip Jar PTS --- PiNEJGUv4AZVZkLuF6hV4xwbYTRp5etWWJ
+Tip Jar BTC --- 1CCuamNem7kaEFUxHTLCQUMhpiHds4sdpA
